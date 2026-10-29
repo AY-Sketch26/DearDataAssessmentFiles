@@ -17,6 +17,24 @@ void setup() {
 
 void draw() {
   background(20);
+  noStroke();
+
+  for (int i = 1; i < lines.length; i++) {
+    String[] parts = split(lines[i], ',');
+
+    // Time is like "17:42", so split at ':' and keep the hour
+    String[] timeParts = split(parts[1], ':');
+    int hour = int(timeParts[0]);
+
+    // map() scales the hour (0 to 24) to a spot across the window
+    float x = map(hour, 0, 24, 50, width - 50);
+
+    // Each car gets its own row, top to bottom
+    float y = map(i, 1, lines.length - 1, 50, height - 50);
+
+    setCarColour(parts[3]);
+    ellipse(x, y, 20, 20);
+  }
 }
 
 // Method that returns a value: "int" is the type it gives back,
@@ -37,4 +55,22 @@ int countColour(String colour) {
   }
 
   return count;
+}
+
+// Picks a fill colour from the car's colour
+// Anything not listed (like "Nardo Grey") just becomes grey
+void setCarColour(String colour) {
+  if (colour.equals("Black")) {
+    fill(60);
+  } else if (colour.equals("White")) {
+    fill(255);
+  } else if (colour.equals("Red")) {
+    fill(220, 40, 40);
+  } else if (colour.equals("Blue")) {
+    fill(40, 90, 220);
+  } else if (colour.equals("Green")) {
+    fill(40, 170, 80);
+  } else {
+    fill(150);
+  }
 }
