@@ -35,6 +35,29 @@ void draw() {
     setCarColour(parts[3]);
     ellipse(x, y, 20, 20);
   }
+
+  drawTitle();
+  drawHourLabels();
+}
+
+void drawTitle() {
+  fill(255);
+  textAlign(LEFT);
+  textSize(18);
+  text("Cars I noticed - " + (lines.length - 1) + " cars", 20, 30);
+}
+
+// Puts a label every 3 hours along the bottom
+// Uses the same map() as the circles so the labels line up with them
+void drawHourLabels() {
+  fill(180);
+  textAlign(CENTER);
+  textSize(12);
+
+  for (int h = 0; h <= 24; h += 3) {
+    float x = map(h, 0, 24, 50, width - 50);
+    text(h + ":00", x, height - 15);
+  }
 }
 
 // Method that returns a value: "int" is the type it gives back,
